@@ -1,6 +1,6 @@
 # AletheiaPy
 
-AletheiaPy is a Python wrapper of Aletheia API, which provides access to financial data.
+AletheiaPy is a Python wrapper of [Aletheia API](https://aletheiaapi.com/), which provides access to financial data.
 
 ## Installation
 
@@ -12,15 +12,15 @@ pip install AletheiaPy
 
 ## Usage
 
-Note that an API key is required to use the client.
+Note that an API key is required to use the client. AletheiaPy essentially follows [Aletheia API's usage](https://aletheiaapi.com/docs/). Note that AletheiaPy currently supports GET requests only.
 
 ```python
-from AletheiaPy import Client
+from Aletheia import Client
 
 # Initialize Client
 key = "333acb16de254844ab64783232d2ba66" # Example from Aletheia's website
-Aletheia = Client(key)
+theia = Client(key)
 
 # Get a stock summary for a security
-Aletheia.StockData("FB")
+theia.StockData("FB")
 ```

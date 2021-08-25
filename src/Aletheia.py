@@ -38,11 +38,11 @@ class Client:
         
         return json.loads(requests.get(call).text)
     
-    def LatestTransactions(self, issuer = "", owner = "", top = 20, before = 0, securitytype = -1, transactiontype = -1, cascade = False):
+    def LatestTransactions(self, issuer = "", owner = "", top = 20, before = None, securitytype = -1, transactiontype = -1, cascade = False):
         url = self.base + f"LatestTransactions?key={self.key}&top={top}"
         if len(issuer) > 0: url = url + f"&issuer={issuer}"
         if len(owner) > 0: url = url + f"&owner={owner}"
-        if before > 0: url = url + f"&before={before}"
+        if before != None: url = url + f"&before={before}"
         if securitytype >= 0: url = url + f"&securitytype={securitytype}"
         if transactiontype >= 0: url = url + f"&transactiontype={transactiontype}"
         if cascade: url = url + "&cascade"
@@ -54,46 +54,46 @@ class Client:
     
         return json.loads(requests.get(url).text)
     
-    def CommonFinancials(self, id, period = -1, before = 0):
+    def CommonFinancials(self, id, period = None, before = None):
         url = self.base + f"CommonFinancials?key={self.key}&id={id}"
-        if period == 0 or period == 1: url = url + f"&period={period}"
-        if before > 0: url = url + f"&before={before}"
+        if period != None: url = url + f"&period={period}"
+        if before != None: url = url + f"&before={before}"
     
         return json.loads(requests.get(url).text)
     
-    def FinancialFactTrend(self, id, label, period = -1, after = 0, before = 0):
+    def FinancialFactTrend(self, id, label, period = None, after = None, before = None):
         url = self.base + f"FinancialFactTrend?key={self.key}&id={id}&label={label}"
-        if period == 0 or period == 1: url = url + f"&period={period}"
-        if after > 0: url = url + f"&after={after}"
-        if before > 0: url = url + f"&before={before}"
+        if period != None: url = url + f"&period={period}"
+        if after != None: url = url + f"&after={after}"
+        if before != None: url = url + f"&before={before}"
             
         return json.loads(requests.get(url).text)
     
-    def SearchEarningsCalls(self, company = "", year = 0, quarter = "", top = 15):
+    def SearchEarningsCalls(self, company = None, year = 0, quarter = None, top = 15):
         url = self.base + f"SearchEarningsCalls?key={self.key}&top={top}"
-        if len(company) > 0: url = url + f"&company={company}"
+        if company != None: url = url + f"&company={company}"
         if year > 0: url = url + f"&year={year}"
-        if len(quarter) > 0: url = url + f"&quarter={quarter}"
+        if quarter != None: url = url + f"&quarter={quarter}"
             
         return json.loads(requests.get(url).text)
     
-    def EarningsCall(self, company, year, quarter, begin = -1, end = -1):
+    def EarningsCall(self, company, year, quarter, begin = None, end = None):
         url = self.base + f"EarningsCall?key={self.key}&company={company}&year={year}&quarter={quarter}"
-        if begin >= 0: url = url + f"&begin={begin}"
-        if end >= 0: url = url + f"&end={end}"
+        if begin != None: url = url + f"&begin={begin}"
+        if end != None: url = url + f"&end={end}"
             
         return json.loads(requests.get(url).text)
     
-    def EarningsCallHighlights(self, company, year, quarter, category = -1):
+    def EarningsCallHighlights(self, company, year, quarter, category = None):
         url = self.base + f"EarningsCallHighlights?key={self.key}&company={company}&year={year}&quarter={quarter}"
-        if category >= 0: url = url + f"&category={category}"
+        if category != None: url = url + f"&category={category}"
         
         return json.loads(requests.get(url).text)
     
-    def EntityFilings(self, id, filing = "", before = 0):
+    def EntityFilings(self, id, filing = None, before = None):
         url = self.base + f"EntityFilings?key={self.key}&id:={id}"
-        if len(filing) > 0: url = url + f"&filing={filing}"
-        if before > 0: url = url + f"&before={before}"
+        if filing != None: url = url + f"&filing={filing}"
+        if before != None: url = url + f"&before={before}"
         
         return json.loads(requests.get(url).text)
     
@@ -107,18 +107,19 @@ class Client:
         
         return json.loads(requests.get(url).text) 
 
-    def consumption(self, begin = 0, end = 0, year = 0, month = 0): # Doesn't work yet
+    def consumption(self, begin = None, end = None, year = None, month = None): # Doesn't work yet
         url = self.base + f"consumption?key={self.key}"
-        if begin > 0: url = url + f"begin={begin}"
-        if end > 0: url = url + f"end={end}"
-        if year > 0: url = url + f"year={year}"
-        if month > 0: url = url + f"month={month}"
+        if begin != None: url = url + f"begin={begin}"
+        if end != None: url = url + f"end={end}"
+        if year != None: url = url + f"year={year}"
+        if month != None: url = url + f"month={month}"
         
         return requests.get(url).text
     
-    def mycalls(self, last = 1): # Doesn't work yet
-        url = self.base + f"mycalls?key={self.key}&last={last}"
-        
+    def mycalls(self, last = None): # Doesn't work yet
+        url = self.base + f"mycalls?key={self.key}"
+        if last != None: url = url + f"&last={last}"
+
         return json.loads(requests.get(url).text)
 
     def version(self):
